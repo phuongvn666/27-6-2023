@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Aspose.Cells;
+
+namespace Read_excel
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Workbook workbook = new Workbook("test.xlsx");
+            WorksheetCollection collection = workbook.Worksheets;
+            for (int worksheetIndex = 0; worksheetIndex < collection.Count; worksheetIndex++)
+            {
+                Worksheet worksheet = collection[worksheetIndex];
+                int rows = worksheet.Cells.MaxDataRow + 1;
+                int cols = worksheet.Cells.MaxDataColumn + 1;
+                int[,] excel = new int[rows - 1, cols - 1];
+
+                for (int i = 0; i < rows - 1; i++)
+                {
+                    for (int j = 0; j < cols - 1; j++)
+                    {
+                        excel[i, j] = worksheet.Cells[i + 1, j + 1].IntValue;
+                    }
+                }
+                Console.WriteLine($"Tong gia tri vung 1 : {area(excel, rows, cols)}");
+                Console.WriteLine($"Tong gia tri duong cheo 2 : {line(excel, rows, cols)}");
+                Console.WriteLine($"Tong gia tri cac so chan 3 : {evenNunber(excel, rows, cols)}");
+            }
+
+        }
+        static int area(int[,] excel, int rows, int cols)
+        {
+            int squareTotal = 0;
+            for (int i = 0; i < rows - 1; i++)
+            {
+                for (int j = 0; j < cols - 1; j++)
+                {
+                    if (i >= 4 && j >= 9) squareTotal += excel[i, j];
+                }
+            }
+            return squareTotal;
+        }
+        static int line(int[,] excel, int rows, int cols)
+        {
+            int lineTotal = 0;
+            for (int i = 0; i < rows - 1; i++)
+            {
+                for (int j = 0; j < cols - 1; j++)
+                {
+                    if (i == j) lineTotal += excel[i, j];
+                }
+            }
+            return lineTotal;
+        }
+        static int evenNunber(int[,] excel, int rows, int cols)
+        {
+            int evenNumberTotal = 0;
+            for (int i = 0; i < rows - 1; i++)
+            {
+                for (int j = 0; j < cols - 1; j++)
+                {
+                    if (excel[i, j] % 2 == 0) evenNumberTotal += excel[i, j];
+                }
+            }
+            return evenNumberTotal;
+        }
+    }
+}
