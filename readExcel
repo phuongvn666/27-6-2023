@@ -16,9 +16,9 @@ namespace Read_excel
             for (int worksheetIndex = 0; worksheetIndex < collection.Count; worksheetIndex++)
             {
                 Worksheet worksheet = collection[worksheetIndex];
-                int rows = worksheet.Cells.MaxDataRow + 1;
-                int cols = worksheet.Cells.MaxDataColumn + 1;
-                int[,] excel = new int[rows - 1, cols - 1];
+                int rows = worksheet.Cells.MaxDataRow+1;
+                int cols = worksheet.Cells.MaxDataColumn+1;
+                int[,] excel = new int[rows-1, cols-1];
 
                 for (int i = 0; i < rows - 1; i++)
                 {
@@ -27,13 +27,13 @@ namespace Read_excel
                         excel[i, j] = worksheet.Cells[i + 1, j + 1].IntValue;
                     }
                 }
-                Console.WriteLine($"Tong gia tri vung 1 : {area(excel, rows, cols)}");
-                Console.WriteLine($"Tong gia tri duong cheo 2 : {line(excel, rows, cols)}");
-                Console.WriteLine($"Tong gia tri cac so chan 3 : {evenNunber(excel, rows, cols)}");
+                Console.WriteLine($"Tong gia tri vung 1 : {CalculateArea(excel, rows, cols)}");
+                Console.WriteLine($"Tong gia tri duong cheo 2 : {CalculateLine(excel, rows, cols)}");
+                Console.WriteLine($"Tong gia tri cac so chan 3 : {CalculateEvenNunber(excel, rows, cols)}");
             }
 
         }
-        static int area(int[,] excel, int rows, int cols)
+        static int CalculateArea(int[,] excel, int rows, int cols)
         {
             int squareTotal = 0;
             for (int i = 0; i < rows - 1; i++)
@@ -45,7 +45,7 @@ namespace Read_excel
             }
             return squareTotal;
         }
-        static int line(int[,] excel, int rows, int cols)
+        static int CalculateLine(int[,] excel, int rows, int cols)
         {
             int lineTotal = 0;
             for (int i = 0; i < rows - 1; i++)
@@ -57,7 +57,7 @@ namespace Read_excel
             }
             return lineTotal;
         }
-        static int evenNunber(int[,] excel, int rows, int cols)
+        static int CalculateEvenNunber(int[,] excel, int rows, int cols)
         {
             int evenNumberTotal = 0;
             for (int i = 0; i < rows - 1; i++)
